@@ -1,6 +1,4 @@
-
-Carmen
-======
+# Carmen [![Build Status](https://api.travis-ci.org/kmdavis/carmen.png?branch=master)](https://travis-ci.org/kmdavis/carmen)[![Coverage Status](https://coveralls.io/repos/kmdavis/carmen/badge.png)](https://coveralls.io/r/kmdavis/carmen)
 ###### What in the world is en-US-sandiego?
 
 Usage
