@@ -1,5 +1,8 @@
-# Carmen [![Build Status](https://api.travis-ci.org/kmdavis/carmen.png?branch=master)](https://travis-ci.org/kmdavis/carmen)[![Coverage Status](https://coveralls.io/repos/kmdavis/carmen/badge.png)](https://coveralls.io/r/kmdavis/carmen)
+# Carmen
 ###### What in the world is en-US-sandiego?
+[![Build Status](https://api.travis-ci.org/kmdavis/carmen.png?branch=master)](https://travis-ci.org/kmdavis/carmen)
+[![Coverage Status](https://coveralls.io/repos/kmdavis/carmen/badge.png)](https://coveralls.io/r/kmdavis/carmen)
+[![Dev Dependencies](https://david-dm.org/kmdavis/carmen/dev-status.svg)](https://david-dm.org/kmdavis/carmen#dev-badge-embed)
 
 Usage
 =====
