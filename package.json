@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/kmdavis/carmen/issues"
   },
-  "main": "kmdavis/carmen.min.js",
+  "main": "lib/carmen.js",
   "devDependencies": {
     "grunt": "0.4.x",
     "grunt-contrib-clean": "0.4.x",
