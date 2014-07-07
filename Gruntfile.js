@@ -14,25 +14,15 @@ module.exports = function (grunt) {
     karma: {
       options: {
         configFile: 'karma.conf.js',
-        preprocessors: {
-          '**/lib/*.js': 'coverage'
-        },
-        browsers: [
-          'Firefox'
-        ],
-        reporters: ['progress', 'coverage']
-        // files: [] // Can't do this here, due to lack of JASMINE and JASMINE_ADAPTER global constants
-        // if you add a dependency, it needs to be added to the files list in karma.conf.js
       },
       specs: {},
       once: {
         singleRun: true
-      },
-      once_travis: {
-        singleRun: true,
-        browsers: [
-          'PhantomJS'
-        ]
+      }
+    },
+    coveralls: {
+      travis: {
+        src: 'coverage/*/lcov.info'
       }
     },
     clean: {
@@ -92,6 +82,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-coveralls');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-release');
   grunt.loadNpmTasks('grunt-replace');
@@ -115,5 +106,5 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['karma:specs']);
   grunt.registerTask('build', ['test', 'clean:build', 'doc', 'concat', 'replace', 'uglify']);
   grunt.registerTask('test', ['jshint', 'karma:once']);
-  grunt.registerTask('test_travis', ['jshint', 'karma:once_travis']);
+  grunt.registerTask('test_travis', ['jshint', 'karma:once', 'coveralls:travis']);
 };
