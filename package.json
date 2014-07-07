@@ -3,7 +3,7 @@
   "title": "Carmen",
   "description": "What in the world is en-US-sandiego?",
   "version": "0.1.0",
-  "homepage": "TODO",
+  "homepage": "https://github.com/kmdavis/carmen",
   "licenses": [{
     "type": "Apache v2",
     "url": "https://github.com/kmdavis/carmen/blob/master/LICENSE"
