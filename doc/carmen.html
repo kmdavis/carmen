@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="en"><head><title>carmen</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="carmen"><meta name="groc-project-path" content="lib/carmen.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib/carmen.js</div></div><div id="document"><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">// UMD stub</span></div><div class="wrapper"><span class="c1">// UMD stub</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">factory</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">define</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">define</span><span class="p">.</span><span class="nx">amd</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// AMD</span>
+
+    <span class="nx">define</span><span class="p">([</span><span class="s1">&#39;exports&#39;</span><span class="cm">/*, // begin dependencies list:</span>
+<span class="cm">      &#39;underscore&#39;*/</span>
+    <span class="p">],</span> <span class="nx">factory</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">exports</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// CommonJS</span>
+
+    <span class="nx">factory</span><span class="p">(</span><span class="nx">exports</span><span class="cm">/*, // begin dependencies list:</span>
+<span class="cm">      require(&#39;underscore&#39;)*/</span>
+    <span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="c1">// Browser globals</span>
+
+    <span class="nx">factory</span><span class="p">((</span><span class="nx">root</span><span class="p">.</span><span class="nx">carmen</span> <span class="o">=</span> <span class="p">{})</span><span class="cm">/*, // begin dependencies list:</span>
+<span class="cm">      root._*/</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}(</span><span class="k">this</span><span class="p">,</span>
+
+<span class="kd">function</span> <span class="p">(</span><span class="nx">exports</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-public"><div class="wrapper"><p><span class='doc-section-header'>Public method parseRFC4646String as "carmen.parse"</span></p>
+
+<p>Parses a string that conforms to RFC-4646 and returns a hash of data found
+in the string.</p>
+
+<p>see: <a href="http://tools.ietf.org/html/rfc4646">RFC-4646</a></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>text must be a String.</strong><br/>(A valid RFC-4646 string)</li>
+</ul>
+
+<p><strong>Returns an Object</strong><br/>(An object containing fields from RFC-4646)</p>
+
+<p>Example:</p>
+
+<pre><code>carmen.parse('en-US');
+//{
+//  text: 'en-US', // NOTE that this is NOT the original string passed
+//                 // in; this string is reconstructed from the original
+//                 // fields and normalized; as such, en_US (a common
+//                 // mistake found in internet exploder) will be "fixed"
+//  language: 'en',
+//  region: 'US'
+//}
+ carmen.parse('sl-Latn-IT-nedis');
+//{
+//  text: 'sl-Latn-IT-nedis',
+//  language: 'sl',
+//  script: 'Latn',
+//  region: 'IT',
+//  variants: ['nedis']
+//}
+</code></pre>
+
+<h1 id="all-possible-fields">All possible fields:</h1>
+
+<ul>
+<li>text</li>
+<li>language</li>
+<li>extlang -- array</li>
+<li>script</li>
+<li>region</li>
+<li>variants -- array</li>
+<li>extensions -- hash</li>
+<li>private -- array</li>
+<li>grandfather</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="kd">function</span> <span class="nx">parseRFC4646String</span> <span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span>
+      <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">text</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">RFC4646_PARSER</span><span class="p">),</span>
+      <span class="nx">entry</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">tmp</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">entry</span> <span class="o">=</span> <span class="p">{};</span>
+
+      <span class="nx">text</span> <span class="o">=</span> <span class="p">[];</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">||</span> <span class="nx">tmp</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">||</span> <span class="nx">tmp</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">text</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">language</span> <span class="o">=</span> <span class="nx">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">||</span> <span class="nx">tmp</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">||</span> <span class="nx">tmp</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">tmp</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">{</span>
+          <span class="p">[].</span><span class="nx">push</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">extlang</span> <span class="o">=</span> <span class="nx">tmp</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="nx">SPLITTER</span><span class="p">));</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tmp</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">text</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">script</span> <span class="o">=</span> <span class="nx">tmp</span><span class="p">[</span><span class="mi">5</span><span class="p">]);</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tmp</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">text</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">region</span> <span class="o">=</span> <span class="nx">tmp</span><span class="p">[</span><span class="mi">6</span><span class="p">]);</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tmp</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span> <span class="p">{</span>
+        <span class="p">[].</span><span class="nx">push</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">variants</span> <span class="o">=</span> <span class="nx">tmp</span><span class="p">[</span><span class="mi">7</span><span class="p">].</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="nx">SPLITTER</span><span class="p">));</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tmp</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">entry</span><span class="p">.</span><span class="nx">extensions</span> <span class="o">=</span> <span class="p">{};</span>
+        <span class="nx">tmp</span><span class="p">[</span><span class="mi">8</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="nx">EXTENSION_PARSER</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">all</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">text</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+          <span class="p">[].</span><span class="nx">push</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">extensions</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="nx">SPLITTER</span><span class="p">));</span>
+        <span class="p">});</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tmp</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">||</span> <span class="nx">tmp</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">text</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">);</span>
+        <span class="p">[].</span><span class="nx">push</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">entry</span><span class="p">.</span><span class="kr">private</span> <span class="o">=</span> <span class="p">(</span><span class="nx">tmp</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">||</span> <span class="nx">tmp</span><span class="p">[</span><span class="mi">10</span><span class="p">]).</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="nx">SPLITTER</span><span class="p">));</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tmp</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">text</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">grandfather</span> <span class="o">=</span> <span class="nx">tmp</span><span class="p">[</span><span class="mi">11</span><span class="p">]);</span>
+      <span class="p">}</span>
+
+      <span class="nx">entry</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">text</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">entry</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private constant RFC4646_PARSER</span></p>
+
+<p>This enormous regex will (mostly) parse any RFC-4646 string. Some post-
+processing is required for those fields that are arrays, especially
+extensions, which are a key/value pair</p></div></div><div class="code"><div class="wrapper">    <span class="nx">RFC4646_PARSER</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span>
+      <span class="s1">&#39;^&#39;</span> <span class="o">+</span>
+        <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span>
+          <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span>
+            <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span> <span class="c1">// language</span>
+
+              <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="c1">// [1]</span>
+                <span class="s1">&#39;q?&#39;</span> <span class="o">+</span> <span class="c1">// private use</span>
+                <span class="s1">&#39;[a-z]{2}&#39;</span> <span class="o">+</span> <span class="c1">// ISO-639</span>
+              <span class="s1">&#39;)&#39;</span> <span class="o">+</span>
+
+              <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="c1">// [2] extlangs</span>
+                <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span>
+                  <span class="s1">&#39;[_-]&#39;</span> <span class="o">+</span>
+                  <span class="s1">&#39;[a-z]{3}&#39;</span> <span class="o">+</span> <span class="c1">// language extension (reserved for future use)</span>
+                <span class="s1">&#39;){0,3}&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;)&#39;</span> <span class="o">+</span>
+
+            <span class="s1">&#39;|&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;([a-z]{4})&#39;</span> <span class="o">+</span> <span class="c1">// [3] reserved for future use</span>
+            <span class="s1">&#39;|&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;([a-z]{5,8})&#39;</span> <span class="o">+</span> <span class="c1">// [4] registered language subtag</span>
+            <span class="s1">&#39;)&#39;</span> <span class="o">+</span>
+
+            <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;[_-]&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;([A-Z][a-z]{3})&#39;</span> <span class="o">+</span> <span class="c1">// [5] ISO-15924 (script)</span>
+            <span class="s1">&#39;)?&#39;</span> <span class="o">+</span> <span class="c1">// script</span>
+
+            <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;[_-]&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="c1">// [6] region</span>
+                <span class="s1">&#39;[A-Z]{2}&#39;</span> <span class="o">+</span> <span class="c1">// ISO-3166-2</span>
+              <span class="s1">&#39;|&#39;</span> <span class="o">+</span>
+                <span class="s1">&#39;\\d{3}&#39;</span> <span class="o">+</span> <span class="c1">// UN M.49</span>
+              <span class="s1">&#39;)&#39;</span> <span class="o">+</span>
+            <span class="s1">&#39;)?&#39;</span> <span class="o">+</span> <span class="c1">// region</span>
+
+            <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="c1">// [7] variants</span>
+                <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span>
+                  <span class="s1">&#39;[_-]&#39;</span> <span class="o">+</span>
+                  <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span>
+                    <span class="s1">&#39;[a-z\\d]{5,8}&#39;</span> <span class="o">+</span>
+                  <span class="s1">&#39;|&#39;</span> <span class="o">+</span>
+                    <span class="s1">&#39;\\d[a-z]{3}&#39;</span> <span class="o">+</span>
+                  <span class="s1">&#39;)&#39;</span> <span class="o">+</span>
+                <span class="s1">&#39;)+&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;)&#39;</span> <span class="o">+</span>
+            <span class="s1">&#39;)?&#39;</span> <span class="o">+</span>
+
+            <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="c1">// [8] extensions</span>
+                <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span>
+                  <span class="s1">&#39;[_-]&#39;</span> <span class="o">+</span>
+                  <span class="s1">&#39;[a-wy-z]&#39;</span> <span class="o">+</span> <span class="c1">// extension indicator</span>
+                  <span class="s1">&#39;(?:[_-]\\w{2,8})+&#39;</span> <span class="o">+</span> <span class="c1">// extension</span>
+                <span class="s1">&#39;)+&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;)&#39;</span> <span class="o">+</span>
+            <span class="s1">&#39;)?&#39;</span> <span class="o">+</span>
+
+            <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;[_-]&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;x&#39;</span> <span class="o">+</span> <span class="c1">// private use indicator</span>
+              <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="c1">// [9] private use</span>
+                <span class="s1">&#39;(?:[_-]\\w{1,8})+&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;)&#39;</span> <span class="o">+</span>
+            <span class="s1">&#39;)?&#39;</span> <span class="o">+</span>
+
+          <span class="s1">&#39;)?&#39;</span> <span class="o">+</span>
+
+        <span class="s1">&#39;|&#39;</span> <span class="o">+</span>
+
+          <span class="s1">&#39;x&#39;</span> <span class="o">+</span> <span class="c1">// private use indicator</span>
+          <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="c1">// [10] private use</span>
+            <span class="s1">&#39;(?:&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;[_-]&#39;</span> <span class="o">+</span>
+              <span class="s1">&#39;\\w{1,8}&#39;</span> <span class="o">+</span>
+            <span class="s1">&#39;)+&#39;</span> <span class="o">+</span>
+          <span class="s1">&#39;)&#39;</span> <span class="o">+</span>
+
+        <span class="s1">&#39;|&#39;</span> <span class="o">+</span>
+
+          <span class="s1">&#39;i&#39;</span> <span class="o">+</span> <span class="c1">// grandfather indicator</span>
+          <span class="s1">&#39;[_-]&#39;</span> <span class="o">+</span>
+          <span class="s1">&#39;(\\w{2,8})&#39;</span> <span class="o">+</span> <span class="c1">// [11] grandfathered</span>
+        <span class="s1">&#39;)&#39;</span> <span class="o">+</span>
+      <span class="s1">&#39;$&#39;</span>
+    <span class="p">),</span>
+    <span class="nx">EXTENSION_PARSER</span> <span class="o">=</span> <span class="sr">/-(\w)((?:[_-]\w{2,8})+)/g</span><span class="p">,</span>
+    <span class="nx">SPLITTER</span> <span class="o">=</span> <span class="sr">/[_-]/g</span><span class="p">;</span>
+
+  <span class="nx">exports</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="nx">parseRFC4646String</span><span class="p">;</span>
+
+  <span class="nx">exports</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="s1">&#39;@@version&#39;</span><span class="p">;</span>
+<span class="p">}));</span></div></div></div></div></body></html>

@@ -1,0 +1,40 @@
+{
+  "name": "carmen",
+  "title": "Carmen",
+  "description": "What in the world is en-US-sandiego?",
+  "version": "0.1.0",
+  "homepage": "TODO",
+  "licenses": [{
+    "type": "Apache v2",
+    "url": "https://github.com/kmdavis/carmen/blob/master/LICENSE"
+  }],
+  "keywords": ["langauge", "locale", "rfc4646"],
+  "author": {
+    "name": "Kevan Davis",
+    "email": "kdavis@gilt.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kmdavis/carmen.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kmdavis/carmen/issues"
+  },
+  "main": "kmdavis/carmen.min.js",
+  "devDependencies": {
+    "grunt": "0.4.x",
+    "grunt-contrib-clean": "0.4.x",
+    "grunt-contrib-concat": "0.1.x",
+    "grunt-contrib-jasmine": "0.3.x",
+    "grunt-contrib-jshint": "0.2.x",
+    "grunt-contrib-uglify": "0.1.x",
+    "grunt-karma": "0.3.x",
+    "grunt-release": "0.2.x",
+    "grunt-replace": "0.4.x",
+    "groc": "0.6.x",
+    "karma-requirejs": "0.2.x"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
+}
