@@ -66,6 +66,11 @@ want to install grunt's cli `sudo npm install -g grunt-cli`. Once you have done
 so, you can run any of our grunt tasks: `grunt watch`, `grunt test`, `grunt build`,
 `grunt release:(major or minor or patch)`
 
+TODO
+====
+- [ ] Support [RFC-5656](http://tools.ietf.org/html/rfc5646)
+- [ ] Exhaustive test suite
+
 License
 =======
 
