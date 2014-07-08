@@ -52,13 +52,6 @@ define(['carmen'], function (carmen) {
           }
         },
         {
-          text: 'i-enochian',
-          result: {
-            text: 'i-enochian',
-            grandfather: 'enochian'
-          }
-        },
-        {
           text: 'x-foo',
           result: {
             text: 'x-foo',
@@ -115,6 +108,34 @@ define(['carmen'], function (carmen) {
               t: ['testing', 'ext'],
               a: ['123']
             }
+          }
+        },
+        {
+          text: 'i-asdf',
+          result: {
+            text: 'i-asdf',
+            grandfather: 'asdf' // RFC 4646 grandfather
+          }
+        },
+        {
+          text: 'i-enochian',
+          result: {
+            text: 'i-enochian',
+            grandfather: 'i-enochian' // RFC 5646 grandfather
+          }
+        },
+        {
+          text: 'art-lojban',
+          result: {
+            text: 'art-lojban',
+            grandfather: 'art-lojban'
+          }
+        },
+        {
+          text: 'zh-xiang',
+          result: {
+            text: 'zh-xiang',
+            grandfather: 'zh-xiang'
           }
         }
       ];

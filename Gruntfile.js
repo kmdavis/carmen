@@ -15,9 +15,15 @@ module.exports = function (grunt) {
       options: {
         configFile: 'karma.conf.js',
       },
-      specs: {},
-      once: {
-        singleRun: true
+      once: {}
+    },
+    watch: {
+      test: {
+        files: ['<%= meta.src %>', '<%= meta.specs %>'],
+        tasks: ['test'],
+        options: {
+          atBegin: true
+        }
       }
     },
     coveralls: {
@@ -82,6 +88,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-coveralls');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-release');
@@ -103,8 +110,8 @@ module.exports = function (grunt) {
     });
   });
 
-  grunt.registerTask('default', ['karma:specs']);
+  grunt.registerTask('default', ['watch:test']);
   grunt.registerTask('build', ['test', 'clean:build', 'doc', 'concat', 'replace', 'uglify']);
   grunt.registerTask('test', ['jshint', 'karma:once']);
-  grunt.registerTask('test_travis', ['jshint', 'karma:once', 'coveralls:travis']);
+  grunt.registerTask('test_travis', ['test', 'coveralls:travis']);
 };

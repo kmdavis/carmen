@@ -7,10 +7,11 @@
 Usage
 =====
 
-Carmen.js is, in a nutshell, a [RFC-4646](http://tools.ietf.org/html/rfc4646)
-parser. In other words, Carmen will parse strings like 'en-US-sandiego' and tell
-you that it refers to the english language, in the United States, specifically,
-the variant spoken in San Diego.
+Carmen.js is, in a nutshell, a [RFC-4646](http://tools.ietf.org/html/rfc4646) &
+[RFC-5646](http://tools.ietf.org/html/rfc5646) parser. In other words, Carmen
+will parse strings like 'en-US-sandiego' and tell you that it refers to the
+english language, in the United States, specifically, the variant spoken in
+San Diego.
 
 ```js
 carmen.parse('en-US');
@@ -65,11 +66,6 @@ We use grunt for running tests and such, so, if you want to contribute, you'll
 want to install grunt's cli `sudo npm install -g grunt-cli`. Once you have done
 so, you can run any of our grunt tasks: `grunt watch`, `grunt test`, `grunt build`,
 `grunt release:(major or minor or patch)`
-
-TODO
-====
-- [ ] Support [RFC-5656](http://tools.ietf.org/html/rfc5646)
-- [ ] Exhaustive test suite
 
 License
 =======
