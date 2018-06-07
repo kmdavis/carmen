@@ -1,14 +1,20 @@
 {
-  "name": "carmen",
+  "name": "@kmdavis/carmen",
   "title": "Carmen",
   "description": "What in the world is en-US-sandiego?",
   "version": "0.1.0",
   "homepage": "https://github.com/kmdavis/carmen",
-  "licenses": [{
-    "type": "Apache v2",
-    "url": "https://github.com/kmdavis/carmen/blob/master/LICENSE"
-  }],
-  "keywords": ["langauge", "locale", "rfc4646"],
+  "licenses": [
+    {
+      "type": "Apache v2",
+      "url": "https://github.com/kmdavis/carmen/blob/master/LICENSE"
+    }
+  ],
+  "keywords": [
+    "language",
+    "locale",
+    "rfc4646"
+  ],
   "author": {
     "name": "Kevan Davis",
     "email": "kevan.davis@me.com"
