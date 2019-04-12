@@ -2,11 +2,14 @@
     "name": "@kmdavis/carmen",
     "title": "Carmen",
     "description": "What in the world is en-US-sandiego?",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "homepage": "https://github.com/kmdavis/carmen",
     "licenses": "MIT",
     "keywords": [
-        "CHANGE ME"
+        "language",
+        "locale",
+        "rfc4646",
+        "rfc5646"
     ],
     "author": "Kevan Davis <kevan.davis@me.com>",
     "repository": "github:kmdavis/carmen.git",
