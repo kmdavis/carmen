@@ -79,6 +79,10 @@ npm test
     * Initial public release
 * 0.2.0
     * Rewrite using modern javascript
+* 0.2.1
+    * Readding keywords
+* 0.2.2
+    * Switching to webpack
 
 ## Meta
 
