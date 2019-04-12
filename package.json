@@ -1,51 +1,48 @@
 {
-  "name": "@kmdavis/carmen",
-  "title": "Carmen",
-  "description": "What in the world is en-US-sandiego?",
-  "version": "0.1.0",
-  "homepage": "https://github.com/kmdavis/carmen",
-  "licenses": [
-    {
-      "type": "Apache v2",
-      "url": "https://github.com/kmdavis/carmen/blob/master/LICENSE"
+    "name": "@kmdavis/carmen",
+    "title": "Carmen",
+    "description": "What in the world is en-US-sandiego?",
+    "version": "0.2.0",
+    "homepage": "https://github.com/kmdavis/carmen",
+    "licenses": "MIT",
+    "keywords": [
+        "CHANGE ME"
+    ],
+    "author": "Kevan Davis <kevan.davis@me.com>",
+    "repository": "github:kmdavis/carmen.git",
+    "bugs": "https://github.com/kmdavis/carmen/issues",
+    "module": "src/index.js",
+    "main": "dist/index.js",
+    "devDependencies": {
+        "@babel/cli": "^7.4.3",
+        "@babel/core": "^7.4.3",
+        "@babel/plugin-transform-modules-umd": "^7.2.0",
+        "@babel/polyfill": "^7.4.3",
+        "@babel/preset-env": "^7.4.3",
+        "babel-eslint": "10.0.1",
+        "babel-plugin-add-header-comment": "^1.0.3",
+        "chai": "^4.2.0",
+        "eslint": "^5.16.0",
+        "eslint-config-airbnb": "^17.1.0",
+        "eslint-plugin-import": "^2.16.0",
+        "jest": "^24.7.1",
+        "sinon": "^7.3.1",
+        "sinon-chai": "^3.3.0"
+    },
+    "jest": {
+        "coveragePathIgnorePatterns": [
+            "setup_tests.js"
+        ],
+        "setupFilesAfterEnv": [
+            "./setup_tests"
+        ],
+        "transform": {
+            "^.+\\.js$": "babel-jest"
+        }
+    },
+    "scripts": {
+        "build": "mkdir -p dist && babel src --out-dir dist && rm -rf dist/__tests__",
+        "lint": "eslint src",
+        "test": "jest"
     }
-  ],
-  "keywords": [
-    "language",
-    "locale",
-    "rfc4646"
-  ],
-  "author": {
-    "name": "Kevan Davis",
-    "email": "kevan.davis@me.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/kmdavis/carmen.git"
-  },
-  "bugs": {
-    "url": "https://github.com/kmdavis/carmen/issues"
-  },
-  "main": "lib/carmen.js",
-  "devDependencies": {
-    "grunt": "0.4.x",
-    "grunt-contrib-clean": "0.5.x",
-    "grunt-contrib-concat": "0.4.x",
-    "grunt-contrib-jasmine": "0.6.x",
-    "grunt-contrib-jshint": "0.10.x",
-    "grunt-contrib-uglify": "0.5.x",
-    "grunt-contrib-watch": "0.6.x",
-    "grunt-coveralls": "0.3.x",
-    "grunt-karma": "0.8.x",
-    "grunt-release": "0.7.x",
-    "grunt-replace": "0.7.x",
-    "groc": "0.6.x",
-    "karma-coverage": "0.2.x",
-    "karma-jasmine": "0.2.x",
-    "karma-requirejs": "0.2.x",
-    "karma-phantomjs-launcher": "0.1.x"
-  },
-  "scripts": {
-    "test": "grunt test"
-  }
 }

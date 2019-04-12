@@ -1,41 +1,48 @@
 # Carmen
-###### What in the world is en-US-sandiego?
-[![Build Status](https://api.travis-ci.org/kmdavis/carmen.png?branch=master)](https://travis-ci.org/kmdavis/carmen)
-[![Coverage Status](https://coveralls.io/repos/kmdavis/carmen/badge.png)](https://coveralls.io/r/kmdavis/carmen)
-[![Dev Dependencies](https://david-dm.org/kmdavis/carmen/dev-status.svg)](https://david-dm.org/kmdavis/carmen#dev-badge-embed)
+> What in the world is en-US-sandiego?
 
-Usage
-=====
+[![NPM Version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Downloads Stats][npm-downloads]][npm-url]
 
 Carmen.js is, in a nutshell, a [RFC-4646](http://tools.ietf.org/html/rfc4646) &
 [RFC-5646](http://tools.ietf.org/html/rfc5646) parser. In other words, Carmen
-will parse strings like 'en-US-sandiego' and tell you that it refers to the
+will parse strings like "en-US-sandiego" and tell you that it refers to the
 english language, in the United States, specifically, the variant spoken in
 San Diego.
 
+## Installation
+
+```sh
+npm install @kmdavis/carmen
+```
+
+## Usage
+
 ```js
-carmen.parse('en-US');
+import carmen from "@kmdavis/carmen";
+carmen("en-US");
 ```
 will return
 ```js
 {
-  text: 'en-US',
-  language: 'en',
-  region: 'US'
+  text: "en-US",
+  language: "en",
+  region: "US",
 }
 ```
 and
 ```js
-carmen.parse('sl-Latn-IT-nedis');
+carmen("sl-Latn-IT-nedis");
 ```
 will return
 ```js
 {
-  text: 'sl-Latn-IT-nedis',
-  language: 'sl',
-  script: 'Latn',
-  region: 'IT',
-  variants: ['nedis']
+  text: "sl-Latn-IT-nedis",
+  language: "sl",
+  script: "Latn'"
+  region: "IT",
+  variants: ["nedis"],
 }
 ```
 
@@ -44,7 +51,7 @@ The full list of fields that Carmen can return is:
 {
   text:        String,
   language:    String,
-  extlang:    [String],
+  extlangs:    [String],
   script:      String,
   region:      String,
   variants:   [String],
@@ -59,27 +66,39 @@ This string is reconstructed from the parsed values; as such, any minor
 formatting errors (such as the common Internet Exploder bug where en-US becomes
 en_US) will be normalized.
 
-Contributing
-============
+## Development setup
 
-We use grunt for running tests and such, so, if you want to contribute, you'll
-want to install grunt's cli `sudo npm install -g grunt-cli`. Once you have done
-so, you can run any of our grunt tasks: `grunt watch`, `grunt test`, `grunt build`,
-`grunt release:(major or minor or patch)`
+```sh
+npm install
+npm test
+```
 
-License
-=======
+## Release History
 
-Copyright 2014 Kevan Davis.
+* 0.1.0
+    * Initial public release
+* 0.2.0
+    * Rewrite using modern javascript
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+## Meta
 
-   http://www.apache.org/licenses/LICENSE-2.0
+Kevan Davis <kevan.davis@me.com>
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Distributed under the MIT license.
+
+[https://github.com/kmdavis/carmen](https://github.com/kmdavis/carmen/)
+
+## Contributing
+
+1. Fork it (<https://github.com/kmdavis/carmen/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
+
+<!-- Markdown link & img dfn's -->
+[npm-image]: https://img.shields.io/npm/v/@kmdavis/carmen.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@kmdavis/carmen
+[npm-downloads]: https://img.shields.io/npm/dm/@kmdavis/carmen.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/kmdavis/carmen/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/kmdavis/carmen
